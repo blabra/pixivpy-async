@@ -14,6 +14,28 @@ class ThreadingTCPServer(ThreadingMixIn, TCPServer):
     pass
 
 
+def generate_failed_reply(address_type, error_number):
+    return struct.pack("!BBBBIH", SOCKS_VERSION, error_number, 0, address_type, 0, 0)
+
+
+def exchange_loop(client, remote):
+
+    while True:
+
+        # wait until client or remote is available for read
+        r, w, e = select.select([client, remote], [], [])
+
+        if client in r:
+            data = client.recv(4096)
+            if remote.send(data) <= 0:
+                break
+
+        if remote in r:
+            data = remote.recv(4096)
+            if client.send(data) <= 0:
+                break
+
+
 class SocksProxy(StreamRequestHandler):
     username = 'username'
     password = 'password'
@@ -38,7 +60,6 @@ class SocksProxy(StreamRequestHandler):
         version, cmd, _, address_type = struct.unpack(
             "!BBBB", self.connection.recv(4))
         assert version == SOCKS_VERSION
-
         if address_type == 1:  # IPv4
             address = socket.inet_ntoa(self.connection.recv(4))
         elif address_type == 3:  # Domain name
@@ -64,35 +85,15 @@ class SocksProxy(StreamRequestHandler):
         except Exception as err:
             logging.error(err)
             # return connection refused error
-            reply = self.generate_failed_reply(address_type, 5)
+            reply = generate_failed_reply(address_type, 5)
 
         self.connection.sendall(reply)
 
         # establish data exchange
         if reply[1] == 0 and cmd == 1:
-            self.exchange_loop(self.connection, remote)
+            exchange_loop(self.connection, remote)
 
         self.server.close_request(self.request)
-
-    def generate_failed_reply(self, address_type, error_number):
-        return struct.pack("!BBBBIH", SOCKS_VERSION, error_number, 0, address_type, 0, 0)
-
-    def exchange_loop(self, client, remote):
-
-        while True:
-
-            # wait until client or remote is available for read
-            r, w, e = select.select([client, remote], [], [])
-
-            if client in r:
-                data = client.recv(4096)
-                if remote.send(data) <= 0:
-                    break
-
-            if remote in r:
-                data = remote.recv(4096)
-                if client.send(data) <= 0:
-                    break
 
 
 if __name__ == '__main__':

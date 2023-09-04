@@ -3,3 +3,4 @@ aiofiles
 aiohttp-socks
 pysocks
 deprecated
+dacite
