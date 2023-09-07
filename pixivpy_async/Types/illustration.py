@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
-from User import User
-from pixivpy_async.Types.Tags import IllustTag
+
+from .User import User
+from .Tags import IllustTag
 
 
 @dataclass
@@ -48,4 +49,18 @@ class Illustration:
     meta_single_page: MetaSinglePage = field(default_factory=MetaSinglePage)
 
 
+# Ugoria
 
+ZipUrls = ImageUrls
+
+
+@dataclass
+class UgoriaFrame:
+    file: str
+    delay: int
+
+
+@dataclass
+class UgoriaMetadata:
+    zip_urls: ZipUrls
+    frames: list[UgoriaFrame]

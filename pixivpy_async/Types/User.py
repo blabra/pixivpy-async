@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 
-from pixivpy_async.Types import Illustration, Novel
+from .illustration import Illustration
+from .Novel import Novel
 
 
 @dataclass

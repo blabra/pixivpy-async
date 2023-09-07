@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from User import User
-from illustration import ImageUrls
-from pixivpy_async.Types.Tags import NovelTag
+
+from .User import User
+from .illustration import ImageUrls
+from .Tags import NovelTag
 
 
 @dataclass(frozen=True)

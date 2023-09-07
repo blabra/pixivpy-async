@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
-from Novel import Novel, NovelSeriesDetail
-from User import User
+
+from .Novel import Novel, NovelSeriesDetail
+from .User import User
 
 
 @dataclass

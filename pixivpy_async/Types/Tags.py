@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
-from illustration import Illustration
+
+from .illustration import Illustration
 
 
 @dataclass

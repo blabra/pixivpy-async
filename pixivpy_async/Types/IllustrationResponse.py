@@ -1,10 +1,11 @@
 from dataclasses import dataclass, field
+from typing import Optional
 
-from illustration import Illustration
-from User import User
-from Comment import Comment
-from TypeAlias import Restriction
-from Tags import BookmarkTag
+from .illustration import Illustration
+from .User import User
+from .Comment import Comment
+from .TypeAlias import Restriction
+from .Tags import BookmarkTag
 
 
 @dataclass
@@ -25,15 +26,16 @@ class ListUserIllustsResponse(BasicListIllustsResponse):
 
 
 @dataclass
-class ListIllustsRecommendResponse(BasicListIllustsResponse):
-    rankin_illusts: list[Illustration] = field(default_factory=list)
-    contest_exists: bool = False
-    privacy_policy: dict = field(default_factory=dict)
+class PrivacyPolicy:
+    version: str = ""
+    message: str = ""
 
 
 @dataclass
-class IllustDetailsResponse:
-    illust: Illustration
+class ListIllustsRecommendResponse(BasicListIllustsResponse):
+    rankin_illusts: list[Illustration] = field(default_factory=list)
+    contest_exists: bool = False
+    privacy_policy: Optional[PrivacyPolicy] = None
 
 
 @dataclass
