@@ -797,15 +797,20 @@ class AppPixivAPI(BasePixivAPI):
     async def novel_follow(
             self,
             req_auth: bool = True,
-            restrict: str = 'all',
+            restrict: Literal["all", "public", "private"] = 'all',
             offset: int | None = None
-    ):
+    ) -> BasicListNovelResponse:
         """
-            返回已关注用户的新小说。最多30个项目。
+        返回已关注用户的新小说。每次请求最多30个项目。
 
-            restrict(int): 返回内容的限制。可以是 'all', 'public' or 'private'。public表示非R18且非R18G，private表示R18或R18G，all表示二者全部。
-
+        PARAMETERS:
+            req_auth(bool): 访问请求是否需登录，该请求需要。
+            restrict(int): 返回内容的限制。可以是 'all', 'public' or 'private'。
+                           public表示非R18且非R18G，private表示R18或R18G，all表示二者全部。
             offset(int|None): 距离最新的小说的距离。为None时表示从最新的小说开始取得，为1时表示从第二新的小说开始取得，以此类推。不可以填0。
+
+        Returns:
+            BasicListNovelResponse(Dataclass) => Dataclass(novels: list[Novel], next_url: string)
         """
         method, url = self.api.novel_follow
         params = self.set_params(
@@ -817,10 +822,21 @@ class AppPixivAPI(BasePixivAPI):
 
     async def novel_new(
             self,
-            filter: str = 'for_ios',
+            filter: PlatformFilter = 'for_ios',
             max_novel_id: int | str | None = None,
             req_auth: bool = True
-    ):
+    ) -> BasicListNovelResponse:
+        """
+        返回 P站站内最新投稿的小说列表
+
+        PARAMETERS:
+            filter(str): 依据设备类型的内容过滤器（可能与谷歌商店和AppStore的审核政策有关，可能会影响内容的显示）
+            max_novel_id(int|str): 限制请求的最大 小说ID
+            req_auth(bool): 访问请求是否需登录，该请求需要。
+
+        Returns:
+            BasicListNovelResponse(Dataclass) => Dataclass(novels: list[Novel], next_url: string)
+        """
         method, url = self.api.novel_new
         params = self.set_params(
             filter=filter,
