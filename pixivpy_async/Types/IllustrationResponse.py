@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .illustration import Illustration
-from .User import User
+from .UserPreview import User
 from .Comment import Comment
 from .TypeAlias import Restriction
 from .Tags import BookmarkTag

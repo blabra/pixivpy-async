@@ -1,13 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from .User import User
-
-
-@dataclass
-class Stamp:
-    stamp_id: int = 0
-    stamp_url: str = ""
+from .UserPreview import User
+from .Stamp import Stamp
 
 
 @dataclass

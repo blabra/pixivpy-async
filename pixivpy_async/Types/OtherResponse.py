@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from .User import UserPreview, User
+from .UserPreview import UserPreview, User
 from .Tags import TrendingTag
 
 

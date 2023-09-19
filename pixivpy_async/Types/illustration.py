@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from .User import User
+from .UserPreview import User
 from .Tags import IllustTag
 
 

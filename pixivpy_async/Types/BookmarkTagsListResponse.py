@@ -1,10 +1,4 @@
-from dataclasses import dataclass, field
-
-
-@dataclass
-class BookmarkTagCounter:
-    count: int
-    name: str
+from .BookmarkTagCounter import *
 
 
 @dataclass
