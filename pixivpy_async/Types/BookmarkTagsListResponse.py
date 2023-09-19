@@ -1,4 +1,6 @@
-from .BookmarkTagCounter import *
+from dataclasses import dataclass, field
+
+from .BookmarkTagCounter import BookmarkTagCounter
 
 
 @dataclass

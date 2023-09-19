@@ -8,6 +8,7 @@ from .additional_functions import to_dataclass
 # App-API (6.x - app-api.pixiv.net)
 
 
+# noinspection PyShadowingBuiltins
 class AppPixivAPI(BasePixivAPI):
     def __init__(self, **requests_kwargs):
         """
