@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from .UserPreview import UserPreview, User
-from .Tags import TrendingTag
+from .TrendingTag import TrendingTag
 
 
 @dataclass

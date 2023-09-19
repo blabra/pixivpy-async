@@ -21,3 +21,4 @@ setup.cfg
 PixivPy_Async.egg-info/
 
 abc*
+test*

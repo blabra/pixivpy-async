@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .UserPreview import User
+from .User import User
 from .illustration import ImageUrls
 from .Tags import NovelTag
 

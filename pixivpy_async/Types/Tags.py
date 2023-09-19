@@ -1,7 +1,5 @@
 from dataclasses import dataclass, field
 
-from .illustration import Illustration
-
 
 @dataclass
 class IllustTag:
@@ -19,7 +17,3 @@ class BookmarkTag:
     name: str
     is_registered: bool
 
-
-@dataclass
-class TrendingTag(IllustTag):
-    illust: Illustration = field(default_factory=Illustration)
